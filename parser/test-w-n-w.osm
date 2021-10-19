@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version="0.6" generator="osmconvert 0.8.11" timestamp="2021-09-27T00:00:00Z">
+    <bounds minlat="4.619" minlon="-74.1079999" maxlat="4.622" maxlon="-74.1039999"/>
+    <node id="1" lat="4.6190313" lon="-74.1050567" version="1"/>
+    <node id="2" lat="4.620911" lon="-74.1052665" version="1"/>
+    <node id="3" lat="4.6203824" lon="-74.1046964" version="1"/>
+    <node id="4" lat="4.6197454" lon="-74.1060474" version="1"/>
+    <node id="5" lat="4.6201572" lon="-74.106011" version="1"/>
+    <node id="6" lat="4.6202241" lon="-74.1060496" version="1"/>
+    <node id="7" lat="4.6202241" lon="-74.1060496" version="1"/>
+    <node id="8" lat="4.6202241" lon="-74.1060496" version="1"/>
+    <way id="1" version="1">
+        <nd ref="1"/>
+        <nd ref="2"/>
+        <nd ref="3"/>
+        <tag k="highway" v="primary"/>
+        <tag k="oneway" v="yes"/>
+    </way>
+    <way id="3" version="1">
+        <nd ref="3"/>
+        <nd ref="4"/>
+        <nd ref="5"/>
+        <tag k="highway" v="primary"/>
+        <tag k="oneway" v="yes"/>
+    </way>
+    <way id="5" version="1">
+        <nd ref="3"/>
+        <nd ref="6"/>
+        <nd ref="7"/>
+        <tag k="highway" v="primary"/>
+        <tag k="oneway" v="yes"/>
+    </way>
+    <way id="6" version="1">
+        <nd ref="2"/>
+        <nd ref="8"/>
+        <tag k="highway" v="primary"/>
+        <tag k="oneway" v="yes"/>
+    </way>
+    <relation id="1" version="1">
+        <member type="way" ref="3" role="to"/>
+        <member type="way" ref="1" role="from"/>
+        <member type="node" ref="3" role="via"/>
+        <tag k="restriction" v="no_left_turn"/>
+        <tag k="type" v="restriction"/>
+    </relation>
+</osm>
