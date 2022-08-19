@@ -1,7 +1,7 @@
 package nearest_edge
 
 import (
-	"gograph/nearest_edge/r2"
+	"github.com/JesseleDuran/gograph/nearest_edge/r2"
 	"math"
 )
 

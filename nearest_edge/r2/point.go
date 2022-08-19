@@ -1,9 +1,9 @@
 package r2
 
 import (
+	"github.com/JesseleDuran/gograph/nearest_edge/mercator"
 	"github.com/golang/geo/r2"
 	"github.com/golang/geo/s2"
-	"gograph/nearest_edge/mercator"
 	"math"
 )
 

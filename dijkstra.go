@@ -1,10 +1,10 @@
 package gograph
 
 import (
+	"github.com/JesseleDuran/gograph/bitset"
+	"github.com/JesseleDuran/gograph/heap"
 	"github.com/golang/geo/s2"
 	geojson "github.com/paulmach/go.geojson"
-	"gograph/bitset"
-	"gograph/heap"
 	"math"
 )
 

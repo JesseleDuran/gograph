@@ -3,9 +3,9 @@ package gograph
 import (
 	"encoding/gob"
 	"encoding/json"
+	"github.com/JesseleDuran/gograph/nearest_edge"
 	"github.com/golang/geo/s2"
 	"github.com/umahmood/haversine"
-	"gograph/nearest_edge"
 	"log"
 	"math"
 	"os"

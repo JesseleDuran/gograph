@@ -1,9 +1,9 @@
 package osm
 
 import (
+	graph "github.com/JesseleDuran/gograph"
 	"github.com/golang/geo/s2"
 	"github.com/qedus/osmpbf"
-	graph "gograph"
 	"io"
 	"log"
 	"os"

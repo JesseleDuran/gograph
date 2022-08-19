@@ -1,8 +1,8 @@
 package r2
 
 import (
+	"github.com/JesseleDuran/gograph/nearest_edge/r1"
 	"github.com/golang/geo/r2"
-	"gograph/nearest_edge/r1"
 )
 
 type Rect struct {
