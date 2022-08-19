@@ -27,11 +27,10 @@ func (m Mode) ToString() string {
 }
 
 type Filter struct {
-	Path                  string
-	InCoverageGeoJSONPath string
-	Mode                  Mode
-	Coverage              s2.Loop
-	SetWeight             SetWeight
+	Path      string
+	Mode      Mode
+	Coverage  s2.Loop
+	SetWeight SetWeight
 }
 
 type SetWeight func(graph.Coordinate, graph.Coordinate) float32
