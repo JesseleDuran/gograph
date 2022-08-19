@@ -1,4 +1,4 @@
-module gograph
+module github.com/JesseleDuran/gograph
 
 go 1.18
 

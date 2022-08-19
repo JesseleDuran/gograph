@@ -1,8 +1,8 @@
 package nearest_edge
 
 import (
+	"github.com/JesseleDuran/gograph/nearest_edge/r2"
 	"github.com/umahmood/haversine"
-	"gograph/nearest_edge/r2"
 )
 
 type GeoSegment struct {

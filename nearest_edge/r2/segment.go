@@ -1,9 +1,9 @@
 package r2
 
 import (
+	"github.com/JesseleDuran/gograph/nearest_edge/r1"
+	"github.com/JesseleDuran/gograph/nearest_edge/vector"
 	geojson "github.com/paulmach/go.geojson"
-	"gograph/nearest_edge/r1"
-	"gograph/nearest_edge/vector"
 	"math"
 )
 

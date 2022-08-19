@@ -1,9 +1,9 @@
 package gograph
 
 import (
+	"github.com/JesseleDuran/gograph/nearest_edge"
+	"github.com/JesseleDuran/gograph/nearest_edge/r2"
 	"github.com/golang/geo/s2"
-	"gograph/nearest_edge"
-	"gograph/nearest_edge/r2"
 	"log"
 )
 
