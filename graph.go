@@ -22,7 +22,7 @@ type Graph struct {
 // Node also called vertex is the fundamental unit of which graphs are formed.
 // Location is a S2 cell ID representing the coordinates of the node.
 type Node struct {
-	Data       []int
+	Data       []uint64
 	ID         int32
 	Location   uint64
 	Compressed bool
@@ -332,7 +332,7 @@ func Write(name string, content interface{}) string {
 }
 
 type Point struct {
-	ID    int
+	ID    uint64
 	Point Coordinate
 }
 

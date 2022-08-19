@@ -55,7 +55,7 @@ func (g Graph) Dijkstra(s ShortestPathCriteria) float32 {
 	return dist.Cost(target)
 }
 
-func (g Graph) DijkstraPathCoord(source, target Coordinate) (float32, geojson.FeatureCollection, []int) {
+func (g Graph) DijkstraPathCoord(source, target Coordinate) (float32, geojson.FeatureCollection, []uint64) {
 	from, initialCost := g.ProjectCoordinate(source)
 	to, _ := g.ProjectCoordinate(target)
 	d, path, data := g.DijkstraPath(ShortestPathCriteria{
@@ -68,14 +68,14 @@ func (g Graph) DijkstraPathCoord(source, target Coordinate) (float32, geojson.Fe
 	return d, *fc, data
 }
 
-func (g Graph) DijkstraPath(s ShortestPathCriteria) (float32, [][]float64, []int) {
+func (g Graph) DijkstraPath(s ShortestPathCriteria) (float32, [][]float64, []uint64) {
 	source, target := s.From, s.To
 	dist := make(Distances, 0)
 	if source < 0 || target < 0 {
-		return dist.Cost(target), [][]float64{}, []int{}
+		return dist.Cost(target), [][]float64{}, []uint64{}
 	}
 	visited := bitset.NewBigInt()
-	dataResult := make([]int, 0)
+	dataResult := make([]uint64, 0)
 	previous := make(Previous, 0)
 
 	// Source node distance to itself is 0.
