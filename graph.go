@@ -330,3 +330,17 @@ func Write(name string, content interface{}) string {
 	}
 	return f.Name()
 }
+
+type Point struct {
+	ID    int
+	Point Coordinate
+}
+
+func (g *Graph) AddData(dataPoints []Point) {
+	for _, data := range dataPoints {
+		nodeID, _ := g.ProjectCoordinate(data.Point)
+		node := g.Nodes[nodeID]
+		node.Data = append(node.Data, data.ID)
+		g.Nodes[nodeID] = node
+	}
+}
