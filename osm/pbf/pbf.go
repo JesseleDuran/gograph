@@ -45,7 +45,7 @@ func MakeGraphFromFile(filter Filter) graph.Graph {
 func createGraph(filter Filter) graph.Graph {
 	nodes := determineValidNodesFromFile(filter.Path, filter.Mode)
 	log.Println("nodes", len(nodes))
-	nodes = getCoverageNodes(filter.Path, filter.Coverage, nodes)
+	//nodes = getCoverageNodes(filter.Path, filter.Coverage, nodes)
 
 	f, err := os.Open(filter.Path)
 	if err != nil {
