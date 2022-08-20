@@ -3,6 +3,7 @@ package gograph
 import (
 	"github.com/JesseleDuran/gograph/bitset"
 	"github.com/JesseleDuran/gograph/heap"
+	"github.com/JesseleDuran/gograph/nearest_edge"
 	"github.com/golang/geo/s2"
 	geojson "github.com/paulmach/go.geojson"
 	"math"
@@ -55,9 +56,9 @@ func (g Graph) Dijkstra(s ShortestPathCriteria) float32 {
 	return dist.Cost(target)
 }
 
-func (g Graph) DijkstraPathCoord(source, target Coordinate) (float32, geojson.FeatureCollection, []uint64) {
-	from, initialCost := g.ProjectCoordinate(source)
-	to, _ := g.ProjectCoordinate(target)
+func (g Graph) DijkstraPathCoord(source, target Coordinate, node nearest_edge.Node) (float32, geojson.FeatureCollection, []uint64) {
+	from, initialCost := g.ProjectCoordinate(source, node)
+	to, _ := g.ProjectCoordinate(target, node)
 	d, path, data := g.DijkstraPath(ShortestPathCriteria{
 		From:        from,
 		InitialCost: initialCost,

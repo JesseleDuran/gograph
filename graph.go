@@ -16,7 +16,6 @@ type Graph struct {
 	Nodes         []Node
 	IncomingEdges Relations
 	OutgoingEdges Relations
-	EdgeIndex     nearest_edge.Node
 }
 
 // Node also called vertex is the fundamental unit of which graphs are formed.
@@ -162,7 +161,10 @@ func (g Graph) Serialize(filePath string) error {
 	file, err := os.Create(filePath)
 	if err == nil {
 		encoder := gob.NewEncoder(file)
-		encoder.Encode(g)
+		err := encoder.Encode(g)
+		if err != nil {
+			return err
+		}
 	}
 	file.Close()
 	return err
@@ -249,7 +251,6 @@ func Deserialize(filePath string) Graph {
 		err = decoder.Decode(g)
 	}
 	file.Close()
-	g.EdgeIndex = g.BuildEdgeIndex()
 	return *g
 }
 
@@ -290,8 +291,8 @@ func (g *Graph) NodeAsCompressed(id int32) {
 	g.Nodes[id] = n
 }
 
-func (g *Graph) ProjectCoordinate(coords Coordinate) (int32, float32) {
-	nearestResult := g.EdgeIndex.GeoQuery(coords.Lat, coords.Lng, []int32{})
+func (g *Graph) ProjectCoordinate(coords Coordinate, node nearest_edge.Node) (int32, float32) {
+	nearestResult := node.GeoQuery(coords.Lat, coords.Lng, []int32{})
 	tempNode := s2.CellIDFromLatLng(s2.LatLngFromDegrees(nearestResult.Projection.Coordinates[0], nearestResult.Projection.Coordinates[1]))
 	a, b := g.Nodes[nearestResult.Segment.A.ID], g.Nodes[nearestResult.Segment.B.ID]
 	dir, _ := g.EdgeDirectionByNodes(a.ID, b.ID)
@@ -336,9 +337,9 @@ type Point struct {
 	Point Coordinate
 }
 
-func (g *Graph) AddData(dataPoints []Point) {
+func (g *Graph) AddData(dataPoints []Point, node nearest_edge.Node) {
 	for _, data := range dataPoints {
-		nodeID, _ := g.ProjectCoordinate(data.Point)
+		nodeID, _ := g.ProjectCoordinate(data.Point, node)
 		node := g.Nodes[nodeID]
 		node.Data = append(node.Data, data.ID)
 		g.Nodes[nodeID] = node
