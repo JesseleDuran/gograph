@@ -69,7 +69,7 @@ func (g Graph) DijkstraPathCoord(source, target Coordinate) (float32, geojson.Fe
 }
 
 func (g Graph) DijkstraPath(s ShortestPathCriteria) (float32, [][]float64, []uint64) {
-	source, target := s.From, s.To
+	source, target, initialCost := s.From, s.To, s.InitialCost
 	dist := make(Distances, 0)
 	if source < 0 || target < 0 {
 		return dist.Cost(target), [][]float64{}, []uint64{}
@@ -79,11 +79,11 @@ func (g Graph) DijkstraPath(s ShortestPathCriteria) (float32, [][]float64, []uin
 	previous := make(Previous, 0)
 
 	// Source node distance to itself is 0.
-	dist[source] = 0
+	dist[source] = initialCost
 
 	pq := heap.Create()
 	// Insert first node id in the PQ, the source node.
-	pq.Insert(heap.Node{Value: source, Cost: 0, Depth: 0})
+	pq.Insert(heap.Node{Value: source, Cost: initialCost, Depth: 0})
 	//the previous node does not exists
 	previous[source] = math.MaxInt32
 	var last int32
@@ -94,8 +94,6 @@ func (g Graph) DijkstraPath(s ShortestPathCriteria) (float32, [][]float64, []uin
 			visited.Set(min.Value, true)
 			dataResult = append(dataResult, g.Nodes[min.Value].Data...)
 		}
-
-		visited.Set(min.Value, true)
 		pq.DeleteMin()
 
 		if min.Value == target {
@@ -115,7 +113,7 @@ func (g Graph) DijkstraPath(s ShortestPathCriteria) (float32, [][]float64, []uin
 			}
 		}
 	}
-	return dist.Cost(target), g.pathPolyline(source, last, previous), dataResult
+	return dist.Cost(last), g.pathPolyline(source, last, previous), dataResult
 }
 
 func (g Graph) pathPolyline(start, end int32, previous Previous) [][]float64 {

@@ -16,7 +16,7 @@ type Graph struct {
 	Nodes         []Node
 	IncomingEdges Relations
 	OutgoingEdges Relations
-	edgeIndex     nearest_edge.Node
+	EdgeIndex     nearest_edge.Node
 }
 
 // Node also called vertex is the fundamental unit of which graphs are formed.
@@ -181,7 +181,7 @@ func (g Graph) Degree() float64 {
 	return nodesDegree / float64(len)
 }
 
-func (g Graph) buildEdgeIndex() nearest_edge.Node {
+func (g Graph) BuildEdgeIndex() nearest_edge.Node {
 	geoSegments := make(nearest_edge.GeoSegments, 0)
 	unique := make(map[int32]map[int32]bool)
 	for i, e := range g.OutgoingEdges {
@@ -249,7 +249,7 @@ func Deserialize(filePath string) Graph {
 		err = decoder.Decode(g)
 	}
 	file.Close()
-	g.edgeIndex = g.buildEdgeIndex()
+	g.EdgeIndex = g.BuildEdgeIndex()
 	return *g
 }
 
@@ -291,7 +291,7 @@ func (g *Graph) NodeAsCompressed(id int32) {
 }
 
 func (g *Graph) ProjectCoordinate(coords Coordinate) (int32, float32) {
-	nearestResult := g.edgeIndex.GeoQuery(coords.Lat, coords.Lng, []int32{})
+	nearestResult := g.EdgeIndex.GeoQuery(coords.Lat, coords.Lng, []int32{})
 	tempNode := s2.CellIDFromLatLng(s2.LatLngFromDegrees(nearestResult.Projection.Coordinates[0], nearestResult.Projection.Coordinates[1]))
 	a, b := g.Nodes[nearestResult.Segment.A.ID], g.Nodes[nearestResult.Segment.B.ID]
 	dir, _ := g.EdgeDirectionByNodes(a.ID, b.ID)

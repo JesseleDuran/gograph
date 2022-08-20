@@ -22,7 +22,7 @@ func (g *Graph) Compress(C float64) {
 	//Compression Ratio
 	cr := 1.0 - float64(compressedNodes/originalNodes)
 	log.Println("cr", compressedNodes, originalNodes, cr)
-	g.edgeIndex = g.buildEdgeIndex()
+	g.EdgeIndex = g.BuildEdgeIndex()
 }
 
 func (g Graph) isVictim(n Node) bool {
@@ -90,7 +90,7 @@ func (g Graph) isFanInOut(n Node) bool {
 // the bridge is far from nearby conflicting edges so it is a victim.
 func (g Graph) CheckConflict(n Node, C float64) bool {
 	lat, lng := s2.CellID(n.Location).LatLng().Lat.Degrees(), s2.CellID(n.Location).LatLng().Lng.Degrees()
-	eConflict := g.edgeIndex.GeoQuery(lat, lng, []int32{n.ID})
+	eConflict := g.EdgeIndex.GeoQuery(lat, lng, []int32{n.ID})
 	for _, eIn := range g.IncomingEdges[n.ID] {
 		for _, eOut := range g.OutgoingEdges[n.ID] {
 			a, b := s2.CellID(g.Nodes[eIn.ID].Location).LatLng(), s2.CellID(g.Nodes[eOut.ID].Location).LatLng()
@@ -103,7 +103,7 @@ func (g Graph) CheckConflict(n Node, C float64) bool {
 				//midpoint of bridge.
 				midpoint := bridge.Midpoint().PointToCoordinates()
 				//closest segment from midpoint of bridge.
-				newConflict := g.edgeIndex.GeoQuery(midpoint[0], midpoint[1], []int32{n.ID}).Segment
+				newConflict := g.EdgeIndex.GeoQuery(midpoint[0], midpoint[1], []int32{n.ID}).Segment
 				eNewConflict := r2.MakeSegmentFromCoordinates(newConflict.A.Coordinates, newConflict.B.Coordinates)
 				//project victim node in new conflict.
 				pNewConflict := eNewConflict.Project(r2.PointFromCoordinates(lat, lng, 0))
