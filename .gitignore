@@ -5,3 +5,5 @@ assets/*.gob
 vendor/
 downloads/
 *.env
+*.pbf
+*.gob
